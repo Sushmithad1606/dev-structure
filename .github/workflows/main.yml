@@ -52,5 +52,16 @@ jobs:
           inventory: |
             [all]
             localhost ansible_connection=local
-        
-            
+          extra_vars: |
+            name='${{ github.event.inputs.name }}'
+            count='${{ github.event.inputs.count }}'
+            repo='${{ github.event.inputs.repo }}'
+            tag='${{ github.event.inputs.tag }}'
+            ingress_public_enabled='${{ github.event.inputs.ingress_public_enabled }}'
+            hosts='${{ github.event.inputs.hosts }}'
+            secretName='${{ github.event.inputs.secretName }}'
+            service_enabled='${{ github.event.inputs.service_enabled }}'
+            port_no='${{ github.event.inputs.port_no }}'
+            container_port_no='${{ github.event.inputs.container_port_no }}'
+            externalSecret_enabled='${{ github.event.inputs.externalSecret_enabled }}'
+            secrets='${{ toJson(github.event.inputs.secrets) }}'
