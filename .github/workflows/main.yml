@@ -51,7 +51,7 @@ jobs:
       - name: Run Ansible playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: deploy.yaml
+          playbook: ".ansible_project/dev-structure/deploy.yaml"
           inventory: |
             [all]
             localhost ansible_connection=local
