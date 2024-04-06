@@ -1,0 +1,33 @@
+- name: Deploy Application
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Include variables
+      include_vars:
+        file: vars.yml
+
+    - name: Render template
+      template:
+        src: app.py.j2
+        dest: output_file.yaml
+
+    - name: Include Ingress configuration if enabled
+      when: ingress_public_enabled
+      block:
+        - name: Enable Ingress
+          debug:
+            msg: "Ingress is enabled"
+
+    - name: Include service configuration if enabled
+      when: service_enabled
+      block:
+        - name: Enable service
+          debug:
+            msg: "Service is enabled"
+
+    - name: Include secrets configuration if enabled
+      when: externalSecret_enabled
+      block:
+        - name: Enable externalSecret
+          debug:
+            msg: "ExternalSecret is enabled"
