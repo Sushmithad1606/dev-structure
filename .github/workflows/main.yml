@@ -1,1 +1,71 @@
+name: Deploy Application
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Name of the application'
+        required: true
+      count:
+        description: 'Replica count'
+        required: true
+      repo:
+        description: 'Repository URL'
+        required: true
+      tag:
+        description: 'Image tag'
+        required: true
+      ingress_public_enabled:
+        description: 'Is ingress public enabled?'
+        required: true
+      hosts:
+        description: 'Hosts'
+        required: true
+      secretName:
+        description: 'Secret name'
+        required: true
+      service_enabled:
+        description: 'Is service enabled?'
+        required: true
+      port_no:
+        description: 'Port number'
+        required: true
+      container_port_no:
+        description: 'Container port number'
+        required: true
+      externalSecret_enabled:
+        description: 'Is external secret enabled?'
+        required: true
+      secrets:
+        description: 'List of secrets'
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run Ansible playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: deploy.yaml
+          inventory: |
+            [all]
+            localhost ansible_connection=local
+          extra_vars: |
+            name=${{ github.event.inputs.name }}
+            count=${{ github.event.inputs.count }}
+            repo=${{ github.event.inputs.repo }}
+            tag=${{ github.event.inputs.tag }}
+            ingress_public_enabled=${{ github.event.inputs.ingress_public_enabled }}
+            hosts=${{ github.event.inputs.hosts }}
+            secretName=${{ github.event.inputs.secretName }}
+            service_enabled=${{ github.event.inputs.service_enabled }}
+            port_no=${{ github.event.inputs.port_no }}
+            container_port_no=${{ github.event.inputs.container_port_no }}
+            externalSecret_enabled=${{ github.event.inputs.externalSecret_enabled }}
+            secrets="[${{ toJson(github.event.inputs.secrets) }}]"
 
