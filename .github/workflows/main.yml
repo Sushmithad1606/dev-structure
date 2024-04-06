@@ -44,7 +44,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-   - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - name: Run Ansible playbook
         uses: saubermacherag/ansible-playbook-docker-action@master
         with:
@@ -52,7 +52,7 @@ jobs:
           inventory: |
             [all]
             localhost ansible_connection=local
-         extra_vars: |
+          extra_vars: |
             name='${{ github.event.inputs.name }}'
             count='${{ github.event.inputs.count }}'
             repo='${{ github.event.inputs.repo }}'
@@ -65,4 +65,3 @@ jobs:
             container_port_no='${{ github.event.inputs.container_port_no }}'
             externalSecret_enabled='${{ github.event.inputs.externalSecret_enabled }}'
             secrets='${{ toJson(github.event.inputs.secrets) }}'
-
