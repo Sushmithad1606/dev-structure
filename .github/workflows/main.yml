@@ -44,8 +44,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+   - uses: actions/checkout@v4
       - name: Run Ansible playbook
         uses: saubermacherag/ansible-playbook-docker-action@master
         with:
