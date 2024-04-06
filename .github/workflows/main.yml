@@ -51,7 +51,7 @@ jobs:
       - name: Run Ansible playbook
         uses: saubermacherag/ansible-playbook-docker-action@master
         with:
-          playbook: ".ansible_project/dev-structure/deploy.yaml"
+          playbook: "deploy.yaml"
           inventory: |
             [all]
             localhost ansible_connection=local
