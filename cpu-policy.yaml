@@ -1,0 +1,23 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: enforce-cpu-limits
+spec:
+  rules:
+    - name: enforce-cpu-requests-and-limits
+      match:
+        resources:
+          kinds:
+            - Deployment
+            - StatefulSet
+      validate:
+        message: "CPU requests and limits must be specified."
+        pattern:
+          spec:
+            containers:
+              - image: {}
+                resources:
+                  limits:
+                    cpu: "required"
+                  requests:
+                    cpu: "required"

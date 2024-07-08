@@ -1,0 +1,8 @@
+# Example values.yaml for Kyverno
+kyverno:
+  replicaCount: 2  # Number of replicas for Kyverno deployment
+  resources:
+    limits:
+      cpu: 200m
+      memory: 200Mi
+    # requests are intentionally left empty to trigger policy enforcement

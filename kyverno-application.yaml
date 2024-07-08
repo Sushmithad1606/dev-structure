@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno
+spec:
+  destination:
+    namespace: kyverno  # Namespace where Kyverno will be deployed
+    server: 'https://kubernetes.default.svc'  # URL of your Kubernetes API server
+  project: default  # Argo CD project name
+  source:
+    repoURL: git@github.com:Sushmithad1606/dev-structure.git # URL of your Git repository
+    path: '.'  # Path within your Git repository where application manifests are stored
+    targetRevision: HEAD  # Git branch, tag, or commit SHA to deploy from
+    helm:
+      valueFiles:
+        - values.yaml  # Specify Helm values file
+  syncPolicy:
+    automated:
+      prune: true  # Enable automatic pruning of resources not defined in Git
+      selfHeal: true  # Enable automatic reconciliation to ensure actual state matches desired state
